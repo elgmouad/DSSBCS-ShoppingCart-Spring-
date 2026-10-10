@@ -26,7 +26,9 @@ A server-rendered shopping cart application built with Spring Boot.
 
 ## Users and permissions
 
-The sample accounts are stored in the configured database and loaded by `DatabaseUserDetailsService`. On startup, the application creates the default accounts if they do not already exist. Passwords are BCrypt-encoded before they are stored, and roles are persisted alongside each account.
+The sample accounts are stored in the configured database and loaded by `DatabaseUserDetailsService`. 
+ - On startup, the application creates the default accounts if they do not already exist. 
+ - Passwords are BCrypt-encoded before they are stored, and roles are persisted alongside each account.
 
 | Account | Roles | Capabilities |
 | --- | --- | --- |
@@ -77,14 +79,11 @@ Cart contents are scoped to the visitor's HTTP session. The cart routes are publ
 | --- | --- | --- | --- |
 | `GET` | `/admin` | `ADMIN` | Display the administration dashboard and product list. |
 | `GET` | `/admin/export` | `ADMIN` | Download the product SQL export as `products.sql`. |
-| `GET` | `/admin/download-db-sql` | `ADMIN` | Alias for the SQL export. |
 | `GET` | `/h2-console` | Public when enabled | Open the H2 database console. |
-
-Static resources under `/css/**`, `/js/**`, `/images/**`, and `/webjars/**` are public. CSRF protection applies to state-changing requests; only the H2 console is excluded.
 
 ## Database
 
-The default database is H2 in-memory, configured in `src/main/resources/application.properties` as `jdbc:h2:mem:testdb`. On startup, the application inserts 12 sample products only if the product table is empty. Because the database is in memory, its data is cleared when the application stops.
+The default database is H2 in-memory, configured in `src/main/resources/application.properties` as `jdbc:h2:mem:testdb`. 
 
 ## Project structure
 
