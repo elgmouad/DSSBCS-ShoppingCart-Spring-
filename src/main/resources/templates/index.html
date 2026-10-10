@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout/base}">
+<head>
+    <title>Inicio</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+        <div class="container-fluid py-3 text-center">
+            <h1 class="display-5 fw-bold">Bienvenido a Nuestra Tienda</h1>
+            <p class="fs-5 text-muted">
+                Explora nuestro catálogo y administra tu carrito de compras.
+            </p>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+                <a th:href="@{/products}" class="btn btn-primary btn-lg px-4">
+                    <i class="bi bi-grid"></i> Ver Catálogo
+                </a>
+                <a th:href="@{/cart}" class="btn btn-outline-secondary btn-lg px-4">
+                    <i class="bi bi-cart3"></i> Ver Carrito
+                </a>
+                <a sec:authorize="hasRole('ADMIN')"
+                   th:href="@{/admin}" class="btn btn-warning btn-lg px-4">
+                    <i class="bi bi-shield-lock"></i> Administrar Productos
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

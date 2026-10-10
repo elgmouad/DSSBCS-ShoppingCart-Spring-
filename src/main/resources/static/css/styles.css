@@ -1,0 +1,32 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    transition: transform 0.15s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+    border-radius: 0.4rem;
+}
+
+footer {
+    font-size: 0.9rem;
+}
+
+.alert {
+    border-radius: 0.5rem;
+}
