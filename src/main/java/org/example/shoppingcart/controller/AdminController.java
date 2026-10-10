@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 /**
@@ -45,19 +48,19 @@ public class AdminController {
 
     /** Download the products as an SQL script. */
     @GetMapping("/export")
-    public ResponseEntity<byte[]> exportDatabase() {
+    public ResponseEntity<byte[]> exportDatabase() throws IOException {
         byte[] sqlBytes = databaseExportService.exportDatabaseToSql();
+
+        Path target = Path.of("exports","products.sql");
+        Files.createDirectories(target.getParent());
+        Files.write(target,sqlBytes);
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", "products.sql");
+        headers.setContentDispositionFormData(
+                "attachment", "products.sql");
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(sqlBytes);
-    }
-
-    /** Aliased endpoint kept for compatibility with the sample admin template. */
-    @GetMapping("/download-db-sql")
-    public ResponseEntity<byte[]> downloadDbSql() {
-        return exportDatabase();
     }
 }

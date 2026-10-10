@@ -1,6 +1,8 @@
 # Shopping Cart
 
-A server-rendered shopping cart application built with Spring Boot. Visitors can browse products and manage a session-based cart. Administrators can manage the product catalogue and download a SQL export.
+A server-rendered shopping cart application built with Spring Boot. 
+ - Visitors can browse products and manage a session-based cart.
+ - Administrators can manage the product catalogue and download a SQL export.
 
 ## Features
 
@@ -9,7 +11,6 @@ A server-rendered shopping cart application built with Spring Boot. Visitors can
 - Create, edit, and delete products as an administrator.
 - Sign in and sign out using form-based authentication.
 - Download the product catalogue as an SQL file.
-- View OpenAPI documentation through Swagger UI.
 
 ## Technology stack
 
@@ -22,32 +23,6 @@ A server-rendered shopping cart application built with Spring Boot. Visitors can
 | Persistence | Spring Data JPA, Hibernate |
 | Database | H2 in-memory database |
 | Build | Maven, with the Maven Wrapper included |
-| Tests | JUnit 5, Mockito, Spring Boot Test |
-
-## Requirements
-
-- Java 25
-- IntelliJ IDEA or another Java IDE (optional)
-
-The included Maven Wrapper downloads and runs the required Maven version, so a separate Maven installation is not necessary.
-
-## Run the application
-
-Run these commands from the project root.
-
-**Windows PowerShell**
-
-```powershell
-.\mvnw.cmd spring-boot:run
-```
-
-**macOS or Linux**
-
-```bash
-./mvnw spring-boot:run
-```
-
-Open [http://localhost:8080](http://localhost:8080) in a browser.
 
 ## Users and permissions
 
@@ -59,7 +34,7 @@ The sample accounts are stored in the configured database and loaded by `Databas
 | `user` / `user` | `USER` | All anonymous capabilities; can also access routes requiring authentication. Cannot manage products or access administration pages. |
 | `admin` / `admin` | `ADMIN`, `USER` | All `USER` capabilities; can view the admin dashboard, add/edit/delete products, and download the SQL export. |
 
-These credentials are for local development and must not be used in a production deployment. Authenticated users without the required role are redirected to `/products?accessDenied=true`.
+Authenticated users without the required role are redirected to `/products?accessDenied=true`.
 
 ## Routes
 
@@ -92,9 +67,9 @@ Cart contents are scoped to the visitor's HTTP session. The cart routes are publ
 | Method | Path | Access | Description |
 | --- | --- | --- | --- |
 | `GET` | `/cart` | Public | Display cart items and the total. |
-| `POST` | `/cart/add/{id}` | Public | Add a product to the cart. |
-| `POST` | `/cart/remove/{id}` | Public | Remove all instances of a product from the cart. |
-| `POST` | `/cart/clear` | Public | Empty the cart. |
+| `POST` | `/cart/add/{id}` | `USER - ADMIN` | Add a product to the cart. |
+| `POST` | `/cart/remove/{id}` | `USER - ADMIN`  | Remove all instances of a product from the cart. |
+| `POST` | `/cart/clear` | `USER - ADMIN`  | Empty the cart. |
 
 ### Administration and developer tools
 
@@ -103,8 +78,6 @@ Cart contents are scoped to the visitor's HTTP session. The cart routes are publ
 | `GET` | `/admin` | `ADMIN` | Display the administration dashboard and product list. |
 | `GET` | `/admin/export` | `ADMIN` | Download the product SQL export as `products.sql`. |
 | `GET` | `/admin/download-db-sql` | `ADMIN` | Alias for the SQL export. |
-| `GET` | `/swagger-ui/index.html` | Public | Open Swagger UI. |
-| `GET` | `/v3/api-docs` | Public | Retrieve the OpenAPI specification. |
 | `GET` | `/h2-console` | Public when enabled | Open the H2 database console. |
 
 Static resources under `/css/**`, `/js/**`, `/images/**`, and `/webjars/**` are public. CSRF protection applies to state-changing requests; only the H2 console is excluded.

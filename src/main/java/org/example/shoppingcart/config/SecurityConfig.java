@@ -65,7 +65,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/index", "/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
 
                         // Authentication endpoints
-                        .requestMatchers("/login", "/logout").permitAll()
+                        .requestMatchers("/login", "/logout","/error").permitAll()
 
                         // Cart is public (session-scoped) but Additiom is not. u need to be logged
                         .requestMatchers("/cart").permitAll()
